@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('description', sa.String(length=50), nullable=True),
     sa.Column('created_date', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=True),
-    sa.Column('changed_on', sa.DateTime(), nullable=True),
+    sa.Column('changed_date', sa.DateTime(), nullable=True),
     sa.Column('changed_by', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['changed_by'], ['user.id'], ),
     sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),

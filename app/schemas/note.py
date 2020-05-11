@@ -1,3 +1,5 @@
+from typing import Optional
+from datetime import datetime
 from pydantic import BaseModel, Field
 
 
@@ -11,3 +13,6 @@ class NoteDB(NoteSchema):
     title: str
     description: str
     owner_id: int
+    created_date: datetime
+    changed_date: Optional[datetime] = None
+    changed_by: Optional[int] = None

@@ -28,9 +28,6 @@ async def read_users(
     Retrieve users.
     """
     users = crud.user.get_multi(db, skip=skip, limit=limit)
-    # return users
-    # query = "SELECT * FROM user"
-    # users = await database.fetch_all(query)
     return users
 
 
