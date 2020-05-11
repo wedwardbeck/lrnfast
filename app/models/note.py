@@ -11,7 +11,7 @@ class Note(Base):
     description = Column(String(50), index=True)
     created_date = Column(DateTime, server_default=func.now(), nullable=False)
     owner_id = Column(Integer, ForeignKey("user.id"))
-    changed_on = Column(DateTime, onupdate=func.now())
+    changed_on = Column(DateTime, onupdate=datetime.datetime.now)
     changed_by = Column(Integer, ForeignKey("user.id"))
 
 
