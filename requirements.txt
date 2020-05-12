@@ -4,7 +4,6 @@ async-generator
 asyncio
 asyncpg
 psycopg2-binary
-aiosql
 celery
 databases[postgresql]
 email-validator

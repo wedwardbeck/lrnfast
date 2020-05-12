@@ -24,9 +24,6 @@ async def create_note(
     :param current_user:
     :return:
     """
-    # note = await crud_notes.post(payload, owner_id=current_user.id)
-
-    # return note
     return await crud_notes.post(payload, owner_id=current_user.id)
 
 
