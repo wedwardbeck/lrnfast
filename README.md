@@ -9,9 +9,8 @@
 
 > Example CRUD API using FastAPI
 
-This repository is a result of wading through converting from 
-synchronous CRUD operations to asynchronous using the backend 
-core from the excellent generator template by Sebastián Ramírez, 
+This repository is the result of wading through how to use async CRUD operations 
+using the backend core from the excellent generator template by Sebastián Ramírez, 
 [Full Stack FastAPI and PostgreSQL - Base Project Generator][tiangolo/fullstack].
 
 In reviewing [the FastAPI docs][fastapidocs], the [encode/databases docs][databases-queries]
