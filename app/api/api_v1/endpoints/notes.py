@@ -6,14 +6,14 @@ from app.api.utils.security import get_current_active_user  # type: ignore
 from app import crud
 from app.crud import crud_notes
 from app.models.user import User  # as User
-from app.schemas.note import NoteDB, NoteSchema
+from app.schemas.note import NoteDB, NoteSchema, NoteUser
 
 router = APIRouter()
 ERROR_NOT_FOUND = "Note not found"
 ERROR_PERMISSIONS = "Not enough permissions"
 
 
-@router.post("/", response_model=NoteDB, status_code=201)
+@router.post("/", response_model=NoteUser, status_code=201)
 async def create_note(
         payload: NoteSchema,
         current_user: User = Depends(get_current_active_user)
@@ -27,7 +27,7 @@ async def create_note(
     return await crud_notes.post(payload, owner_id=current_user.id)
 
 
-@router.get("/{id}/", response_model=NoteDB)
+@router.get("/{id}/", response_model=NoteUser)
 async def read_note(
         id: int = Path(..., gt=0),
         current_user: User = Depends(get_current_active_user)
@@ -39,14 +39,15 @@ async def read_note(
     :return:
     """
     owner = await crud_notes.get_owner(id)
+    print("owner is: ", owner)  # TODO: Remove this print()
     if not owner:
         raise HTTPException(status_code=404, detail=ERROR_NOT_FOUND)
     if not crud.user.is_superuser(current_user) and (owner != current_user.id):
-        raise HTTPException(status_code=400, detail=ERROR_PERMISSIONS)
-    return  await crud_notes.get(id)
+        raise HTTPException(status_code=403, detail=ERROR_PERMISSIONS)
+    return await crud_notes.get(id)
 
 
-@router.get("/", response_model=List[NoteDB])
+@router.get("/", response_model=List[NoteUser])
 async def read_all_notes(
         skip: int = 0,
         limit: int = 100,
@@ -66,7 +67,7 @@ async def read_all_notes(
     return notes
 
 
-@router.put("/{id}/", response_model=NoteDB)
+@router.put("/{id}/", response_model=NoteUser)
 async def update_note(
         payload: NoteSchema,
         id: int = Path(..., gt=0),
@@ -83,7 +84,7 @@ async def update_note(
     if not owner:
         raise HTTPException(status_code=404, detail=ERROR_NOT_FOUND)
     if not crud.user.is_superuser(current_user) and (owner != current_user.id):
-        raise HTTPException(status_code=400, detail=ERROR_PERMISSIONS)
+        raise HTTPException(status_code=403, detail=ERROR_PERMISSIONS)
     note = await crud_notes.put(id, payload, current_user)
     return note
 
@@ -103,5 +104,5 @@ async def delete_note(
     if not owner:
         raise HTTPException(status_code=404, detail=ERROR_NOT_FOUND)
     if not crud.user.is_superuser(current_user) and (owner != current_user.id):
-        raise HTTPException(status_code=400, detail=ERROR_PERMISSIONS)
+        raise HTTPException(status_code=403, detail=ERROR_PERMISSIONS)
     return await crud_notes.delete(id)

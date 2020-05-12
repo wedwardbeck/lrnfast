@@ -16,3 +16,12 @@ class NoteDB(NoteSchema):
     created_date: datetime
     changed_date: Optional[datetime] = None
     changed_by: Optional[int] = None
+
+
+class NoteUser(NoteSchema):
+    id: int
+    title: str
+    description: str
+    created_date: datetime
+    changed_date: Optional[datetime] = None
+    owner: str
