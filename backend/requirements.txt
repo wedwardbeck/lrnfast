@@ -2,10 +2,10 @@ alembic
 async-exit-stack
 async-generator
 asyncio
-asyncpg
+asyncpg==0.20.1
 psycopg2-binary
 celery
-databases[postgresql]
+databases[postgresql]==0.3.2
 email-validator
 emails
 fastapi

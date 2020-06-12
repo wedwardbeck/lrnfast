@@ -16,7 +16,8 @@ RUN source /os-release && \
     mkdir /install_root \
     && swupd os-install -V ${VERSION_ID} \
     --path /install_root --statedir /swupd-state \
-    --bundles=os-core-update,python3-basic --no-boot-update
+    --bundles=os-core-update,python3-basic --no-scripts
+    # --bundles=os-core-update,python3-basic --no-boot-update
 
 # For some Host OS configuration with redirect_dir on,
 # extra data are saved on the upper layer when the same
@@ -33,7 +34,7 @@ FROM clearlinux/os-core:latest
 COPY --from=builder /install_root /
 
 #set work directory early so remaining paths can be relative
-WORKDIR /usr/src
+WORKDIR /usr/src/app
 
 # Adding requirements file to current directory
 # just this file first to cache the pip install step when code changes
@@ -51,7 +52,8 @@ RUN pip install cython && pip install -r requirements.txt
 # expose the port 8000
 EXPOSE 8000
 
-COPY . /usr/src/
-ENV PYTHONPATH=/app 
+# add app
+COPY . .
 
-# CMD ["uvicorn app.main:app"]
+# run entrypoint.sh
+# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

@@ -1,14 +1,18 @@
-version: "3.1"
+version: "3.8"
 
 services:
   psql:
-    image: postgres:12-alpine
-    restart: always
+    build: 
+      context: ./backend/db
+      dockerfile: Dockerfile
+    # restart: always
     secrets:
       - psql_user
       - psql_password
     volumes: 
       - psql-data:/var/lib/postgresql/data
+    expose:
+      - 5432
     networks: 
       - backend
     environment:
@@ -17,19 +21,21 @@ services:
       POSTGRES_DB: lrnfast
 
   app: 
-    build: ./src
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     
-    command: bash -c "while true; do sleep 1; done"  # Infinite loop to keep container live doing nothing
-    # command: uvicorn app.main:app
+    # command: bash -c "while true; do sleep 1; done"  # Infinite loop to keep container live doing nothing
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
 
     volumes: 
-      - ./src:/usr/src/
+      - ./backend:/usr/src/app
     secrets:
       - psql_password
     ports: 
       - 8000:8000
     env_file:
-      - ./src/.env
+      - ./backend/.env
     networks: 
       - backend
       - frontend
@@ -38,9 +44,9 @@ services:
 
 secrets:
   psql_user:
-    file: ./db/psql_user.txt
+    file: ./backend/db/psql_user.txt
   psql_password:
-    file: ./db/psql_password.txt
+    file: ./backend/db/psql_password.txt
 
 networks:
   frontend:
