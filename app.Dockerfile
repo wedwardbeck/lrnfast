@@ -49,7 +49,7 @@ ENV PIP_NO_CACHE_DIR=1
 #install dependencies
 RUN pip install cython && pip install -r requirements.txt
 
-#temp fix for databases
+#temp fix for databases - not correct release on PyPi
 COPY ./databases ./databases
 RUN pip install ./databases  && cd ../ && rm -rf /databases
 
@@ -58,6 +58,3 @@ EXPOSE 8000
 
 # add app
 COPY . .
-
-# run entrypoint.sh
-# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
