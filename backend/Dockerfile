@@ -49,6 +49,10 @@ ENV PIP_NO_CACHE_DIR=1
 #install dependencies
 RUN pip install cython && pip install -r requirements.txt
 
+#temp fix for databases
+COPY ./databases ./databases
+RUN pip install ./databases  && cd ../ && rm -rf /databases
+
 # expose the port 8000
 EXPOSE 8000
 
