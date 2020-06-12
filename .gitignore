@@ -133,4 +133,4 @@ dmypy.json
 # Pycharm
 .idea
 ./alembic/versions/
-/databases/
+/backend/databases/
