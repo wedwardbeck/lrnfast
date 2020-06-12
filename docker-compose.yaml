@@ -3,7 +3,7 @@ version: "3.8"
 services:
   psql:
     build: 
-      context: ./backend/db
+      context: ./db
       dockerfile: Dockerfile
     # restart: always
     secrets:
@@ -44,9 +44,9 @@ services:
 
 secrets:
   psql_user:
-    file: ./backend/db/psql_user.txt
+    file: ./db/psql_user.txt
   psql_password:
-    file: ./backend/db/psql_password.txt
+    file: ./db/psql_password.txt
 
 networks:
   frontend:
