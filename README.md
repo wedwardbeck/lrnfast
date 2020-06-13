@@ -34,7 +34,8 @@ before current changes in structure of the project were made.
 * **asyncpg with Posgresql**: Built using a Postgresql 12 database, but can be altered to use SQLite.
 * **[Alembic][alembic]**: Using autogenerate to create migrations. 
 * **Version 0.1.0**: Uses raw SQL in CRUD functions.  See tag v0.1.0.
-* **Version 0.2.0 (current)**: Uses functions (reads) and procedures (write).  ***Procedures require Posgresql Version 11 or higher.***
+* **Version 0.2.0**: Uses functions (reads) and procedures (write).  ***Procedures require Posgresql Version 11 or higher.***
+* **Version 0.3.0**: Uses Docker-Compose to spin up services and run migrations.
 
 ### Critical Notes
 * PyCharm (or other IDE) may complain about the PSQL Procedures using "CALL" - I just injected SQL lanuage on the query text to eliminate the errors.  
