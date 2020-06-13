@@ -24,4 +24,4 @@ class NoteUser(NoteSchema):
     description: str
     created_date: datetime
     changed_date: Optional[datetime] = None
-    owner: str
+    owner: str = None

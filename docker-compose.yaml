@@ -9,6 +9,8 @@ services:
       - psql-data:/var/lib/postgresql/data
     expose:
       - 5432
+    ports: 
+      - 5432:5432
     env_file:
       - .env
     networks: 
@@ -18,7 +20,12 @@ services:
     build: 
       context: ./backend
       dockerfile: ../app.Dockerfile
-    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        ./app/prestart.sh
+        uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     volumes: 
       - ./backend:/usr/src/app
     ports: 
