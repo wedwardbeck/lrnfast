@@ -16,7 +16,7 @@ RUN source /os-release && \
     mkdir /install_root \
     && swupd os-install -V ${VERSION_ID} \
     --path /install_root --statedir /swupd-state \
-    --bundles=os-core-update,python3-basic --no-scripts
+    --bundles=os-core-update,python3-basic,ncat --no-scripts
     # --bundles=os-core-update,python3-basic --no-boot-update
 
 # For some Host OS configuration with redirect_dir on,

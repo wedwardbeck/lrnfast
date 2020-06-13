@@ -19,8 +19,13 @@ fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
 
-# my_important_option = config.get_main_option("my_important_option")
-
+POSTGRES_SERVER = os.getenv("POSTGRES_SERVER")
+POSTGRES_USER = os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+POSTGRES_DB = os.getenv("POSTGRES_DB")
+SQLALCHEMY_DATABASE_URI = (
+    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
+)
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
@@ -34,8 +39,8 @@ def run_migrations_offline():
     script output.
 
     """
-    # url = get_url()
-    url = os.getenv("SQLALCHEMY_URL", None)
+
+    url = SQLALCHEMY_DATABASE_URI
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -55,8 +60,8 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    # configuration = config.get_section(config.config_ini_section)
-    url = os.getenv("SQLALCHEMY_URL", None)
+    
+    url = SQLALCHEMY_DATABASE_URI
     if url:
         connectable = create_engine(url)
     else:

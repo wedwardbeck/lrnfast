@@ -22,6 +22,7 @@ class UserBaseInDB(UserBase):
 class UserCreate(UserBaseInDB):
     email: EmailStr
     password: str
+    full_name: str
 
 
 # Properties to receive via API on update
