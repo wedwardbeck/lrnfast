@@ -10,7 +10,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+# build/
 develop-eggs/
 dist/
 downloads/
@@ -132,5 +132,7 @@ dmypy.json
 
 # Pycharm
 .idea
-# ./alembic/versions/
+
+.vscode
+# other
 /backend/databases/

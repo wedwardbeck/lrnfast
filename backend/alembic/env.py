@@ -12,20 +12,13 @@ load_dotenv()
 
 sys.path.append(os.getcwd())
 from app.db.base import Base  # noqa
+from app.core.config import SQLALCHEMY_DATABASE_URI
 
 config = context.config
 
 fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
-
-POSTGRES_SERVER = os.getenv("POSTGRES_SERVER")
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-POSTGRES_DB = os.getenv("POSTGRES_DB")
-SQLALCHEMY_DATABASE_URI = (
-    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}/{POSTGRES_DB}"
-)
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
