@@ -3,7 +3,7 @@ alembic==1.4.2
 async-exit-stack==1.0.1
 async-generator==1.10
 asyncio==3.4.3
-asyncpg==0.20.1
+asyncpg==0.21.0
 psycopg2-binary==2.8.5
 celery==5.2.2
 # databases[postgresql]==0.3.2
