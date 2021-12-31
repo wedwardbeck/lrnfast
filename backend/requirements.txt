@@ -9,7 +9,7 @@ celery==5.2.2
 # databases[postgresql]==0.3.2
 email-validator==1.1.1
 emails==0.5.15
-fastapi==0.57.0
+fastapi==0.65.2
 passlib[bcrypt]==1.7.2
 pydantic==1.5.1
 pyjwt==1.7.1
